@@ -1,0 +1,13 @@
+[package]
+name = "mfdr"
+version = "1.0.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+diesel = { version = "2.1.4", features = ["postgres", "r2d2"] }
+diesel-async = { version = "0.3.1", features = ["postgres"] }
+tokio = { version = "1.35.0", features = ["full"] }
+dotenv = "0.15.0"
+clap = { version = "4.4.11", features = ["derive", "default"] }
