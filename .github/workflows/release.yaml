@@ -1,0 +1,30 @@
+name: Test, compile and release
+on:
+  push:
+    tags:
+      - v*.*.*
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Lint
+        run: cargo fmt --check
+      - name: Test
+        run: cargo test --verbose
+      - name: Compile
+        run: |
+          cargo build --release
+          ls -al target/release
+      - name: Archive
+        uses: vimtor/action-zip@v1.1
+        with:
+          files: target/release/mfdr
+          dest: mfdr.zip
+          recursive: true
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            mfdr.zip
